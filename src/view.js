@@ -2,9 +2,9 @@ const renderItems = (items) => {
   const tableElements = {
     ul: document.querySelector('.responsive-table'),
   };
-  items.map((item) => {
+  items.forEach((item) => {
     const {
-      name, created, category, content, dates, icons,
+      name, created, category, content, dates,
     } = item;
     console.log(dates[0].currentDate);
     const li = document.createElement('li');
