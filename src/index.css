@@ -54,6 +54,16 @@ h2 small {
   text-align: right;
   flex-basis: 15%;
 }
+.button {
+  margin-left: 80%;
+  background-color: #c4c4c4;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-flexbox;
+  font-size: 16px;
+}
 @media (max-width: 767px) {
   .responsive-table .table-header {
     display: none;
