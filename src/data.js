@@ -19,7 +19,7 @@ export default () => {
       name: 'Notes', created: 'April 20, 2021', category: 'Task', content: 'Wrire poem', dates: [{ currentDate: '', changedDate: '' }], active: false,
     },
     {
-      name: 'Film', created: 'April 22, 2021', category: 'Task', content: 'Maxtrix, 1+1...', dates: [{ currentDate: '', changedDate: '' }], active: false,
+      name: 'Film', created: 'April 22, 2021', category: 'Task', content: 'Maxtrix, 1+1...', dates: [{ currentDate: '', changedDate: '' }], active: true,
     },
   ];
   return items;

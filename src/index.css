@@ -18,39 +18,39 @@ h2 {
 h2 small {
   font-size: 0.5em;
 }
-.responsive-table li {
+.responsive-table li, .responsive-table-result li {
   border-radius: 3px;
   padding: 25px 30px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
 }
-.responsive-table .table-header {
+.responsive-table .table-header, .responsive-table-result .table-header {
   background-color: #95A5A6;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-.responsive-table .table-row {
+.responsive-table .table-row, .responsive-table-result .table-row-result {
   background-color: #ebebeb;
   box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
 }
-.responsive-table .col-1 {
+.responsive-table .col-1, .responsive-table-result .col-1 {
   flex-basis: 25%;
 }
-.responsive-table .col-2 {
+.responsive-table .col-2, .responsive-table-result .col-2 {
+    flex-basis: 15%;
+}
+.responsive-table .col-3, .responsive-table-result .col-3 {
   flex-basis: 15%;
 }
-.responsive-table .col-3 {
+.responsive-table .col-4, .responsive-table-result .col-4 {
   flex-basis: 15%;
 }
-.responsive-table .col-4 {
+.responsive-table .col-5, .responsive-table-result .col-5 {
   flex-basis: 15%;
 }
-.responsive-table .col-5 {
-  flex-basis: 15%;
-}
-.responsive-table .col-6 {
+.responsive-table .col-6, .responsive-table-result .col-6 {
   text-align: right;
   flex-basis: 15%;
 }

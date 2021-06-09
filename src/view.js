@@ -1,10 +1,7 @@
-const renderItems = (items) => {
-  const tableElements = {
-    ul: document.querySelector('.responsive-table'),
-  };
+const renderItems = (items, element) => {
   items.forEach((item) => {
     const {
-      name, created, category, content, dates,
+      name, created, category, content, dates, id,
     } = item;
     const li = document.createElement('li');
     const divCol1 = document.createElement('div');
@@ -24,8 +21,14 @@ const renderItems = (items) => {
     divCol5.classList.add('col', 'col-5');
     divCol6.classList.add('col', 'col-6');
     iArchive.classList.add('large', 'material-icons');
+    iArchive.setAttribute('data-id', id);
+    iArchive.setAttribute('data-type', 'archive');
     iBasket.classList.add('large', 'material-icons');
+    iBasket.setAttribute('data-id', id);
+    iBasket.setAttribute('data-type', 'basket');
     iEdit.classList.add('large', 'material-icons');
+    iEdit.setAttribute('data-id', id);
+    iEdit.setAttribute('data-type', 'edit');
     divCol1.setAttribute('data-label', 'Name');
     divCol2.setAttribute('data-label', 'Created');
     divCol3.setAttribute('data-label', 'Category');
@@ -49,12 +52,28 @@ const renderItems = (items) => {
     li.append(divCol4);
     li.append(divCol5);
     li.append(divCol6);
-    tableElements.ul.append(li);
+    element.append(li);
   });
 };
 
-const renderCategories = (categories) => {
-  console.log(categories);
+const renderSumTableItems = (categories, categoriesType, element) => {
+  categoriesType.forEach((category) => {
+    const li = document.createElement('li');
+    const divCol1 = document.createElement('div');
+    const divCol2 = document.createElement('div');
+    const divCol3 = document.createElement('div');
+    li.classList.add('table-row-result');
+    divCol1.classList.add('col', 'col-1');
+    divCol2.classList.add('col', 'col-2');
+    divCol3.classList.add('col', 'col-3');
+    divCol1.textContent = category;
+    divCol2.textContent = categories[category].active;
+    divCol3.textContent = categories[category].archive;
+    li.append(divCol1);
+    li.append(divCol2);
+    li.append(divCol3);
+    element.append(li);
+  });
 };
 
-export { renderItems, renderCategories };
+export { renderItems, renderSumTableItems };
