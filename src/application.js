@@ -78,10 +78,8 @@ export default () => {
     state
       .categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
     state
-      .categories[currentNote.category].archive = countArchiveNotes(archiveNotes, currentNote.category);
-    // console.log(currentNote.category);
-    // console.log(archiveNotes);
-    // console.log(countArchiveNotes(archiveNotes, currentNote));
+      .categories[currentNote.category]
+      .archive = countArchiveNotes(archiveNotes, currentNote.category);
     li.forEach((el) => {
       el.remove();
     });
