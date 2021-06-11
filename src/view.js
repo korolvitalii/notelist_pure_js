@@ -56,7 +56,8 @@ const renderItems = (items, element) => {
   });
 };
 
-const renderSumTableItems = (categories, categoriesType, element) => {
+const renderSumTableItems = (state, element) => {
+  const { categories, categoriesType } = state;
   categoriesType.forEach((category) => {
     const li = document.createElement('li');
     const divCol1 = document.createElement('div');
