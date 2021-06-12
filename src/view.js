@@ -77,4 +77,39 @@ const renderSumTableItems = (state, element) => {
   });
 };
 
-export { renderItems, renderSumTableItems };
+const renderForm = () => {
+  // <form action="/action_page.php">
+  //   <label for="fname">First name:</label><br>
+  //   <input type="text" id="fname" name="fname" value="John"><br>
+  //   <label for="lname">Last name:</label><br>
+  //   <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  //   <input type="submit" value="Submit">
+  //   <input type="reset">
+  // </form>
+  const divContainer = document.querySelector('.container');
+  const form = document.createElement('form');
+  const inputName = document.createElement('input');
+  const inputCategory = document.createElement('input');
+  const inputDates = document.createElement('input');
+  const labelName = document.createElement('label');
+  const labelCategory = document.createElement('label');
+  const labelDates = document.createElement('label');
+  const inputSubmit = document.createElement('input');
+  inputName.setAttribute('type', 'text');
+  inputCategory.setAttribute('type', 'text');
+  inputDates.setAttribute('type', 'text');
+  inputSubmit.setAttribute('type', 'submit');
+  labelName.textContent = 'Name';
+  labelCategory.textContent = 'Category';
+  labelDates.textContent = 'Dates';
+  form.append(inputName);
+  form.append(labelName);
+  form.append(inputCategory);
+  form.append(labelCategory);
+  form.append(inputDates);
+  form.append(labelDates);
+  form.append(inputSubmit);
+  divContainer.append(form);
+};
+
+export { renderItems, renderSumTableItems, renderForm };

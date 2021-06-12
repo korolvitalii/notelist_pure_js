@@ -10,7 +10,7 @@ export default () => {
       name: 'New Feature', created: 'May 05, 2021', category: 'Idea', content: 'Implement new..', dates: [{ currentDate: '3/5/2021', changedDate: '5/5/2021' }], active: true, archive: false,
     },
     {
-      name: 'William Gaddis', created: 'May 07, 2021', category: 'Quote', content: 'Power doesnt.. ', dates: [{ currentDate: '', changedDate: '' }], active: false, archive: false,
+      name: 'William Gaddis', created: 'May 07, 2021', category: 'Quote', content: 'Power doesnt.. ', dates: [{ currentDate: '', changedDate: '' }], active: true, archive: false,
     },
     {
       name: 'Books', created: 'May 15, 2021', category: 'Task', content: 'The learn startup', dates: [{ currentDate: '', changedDate: '' }], active: true, archive: false,
