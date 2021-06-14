@@ -42,7 +42,7 @@ const renderItems = (items, element) => {
     divCol2.textContent = created;
     divCol3.textContent = category;
     divCol4.textContent = content;
-    divCol5.textContent = `${dates[0].currentDate} ${dates[0].changedDate}`;
+    divCol5.textContent = dates;
     divCol6.append(iEdit);
     divCol6.append(iArchive);
     divCol6.append(iBasket);
@@ -77,37 +77,44 @@ const renderSumTableItems = (state, element) => {
   });
 };
 
-const renderForm = () => {
-  // <form action="/action_page.php">
-  //   <label for="fname">First name:</label><br>
-  //   <input type="text" id="fname" name="fname" value="John"><br>
-  //   <label for="lname">Last name:</label><br>
-  //   <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  //   <input type="submit" value="Submit">
-  //   <input type="reset">
-  // </form>
-  const divContainer = document.querySelector('.container');
+const renderForm = (editElement) => {
+  const divContainer = document.querySelector('.buttonForForm');
   const form = document.createElement('form');
   const inputName = document.createElement('input');
   const inputCategory = document.createElement('input');
+  const inputContent = document.createElement('input');
   const inputDates = document.createElement('input');
   const labelName = document.createElement('label');
   const labelCategory = document.createElement('label');
+  const labelContent = document.createElement('label');
   const labelDates = document.createElement('label');
   const inputSubmit = document.createElement('input');
   inputName.setAttribute('type', 'text');
+  inputName.setAttribute('name', 'name');
+  inputName.value = editElement ? editElement.name : '';
+  inputContent.setAttribute('type', 'text');
+  inputContent.setAttribute('name', 'content');
+  inputContent.value = editElement ? editElement.content : '';
   inputCategory.setAttribute('type', 'text');
+  inputCategory.setAttribute('name', 'category');
+  inputCategory.value = editElement ? editElement.category : '';
   inputDates.setAttribute('type', 'text');
+  inputDates.setAttribute('name', 'dates');
+  inputDates.value = editElement ? editElement.dates : '';
   inputSubmit.setAttribute('type', 'submit');
+  inputSubmit.setAttribute('value', 'Add Note');
   labelName.textContent = 'Name';
   labelCategory.textContent = 'Category';
   labelDates.textContent = 'Dates';
-  form.append(inputName);
+  labelContent.textContent = 'Content';
   form.append(labelName);
-  form.append(inputCategory);
+  form.append(inputName);
   form.append(labelCategory);
-  form.append(inputDates);
+  form.append(inputCategory);
   form.append(labelDates);
+  form.append(inputDates);
+  form.append(labelContent);
+  form.append(inputContent);
   form.append(inputSubmit);
   divContainer.append(form);
 };

@@ -5,35 +5,28 @@ body {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: black;
-}
-h2 {
-  font-size: 26px;
-  margin: 20px 0;
-  text-align: center;
-
-}
-h2 small {
-  font-size: 0.5em;
+  padding-left: 20px;
+  padding-right: 45px;
 }
 .responsive-table li, .responsive-table-result li {
-  border-radius: 3px;
-  padding: 25px 30px;
+  border-radius: 10px;
+  padding: 10px 15px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 .responsive-table .table-header, .responsive-table-result .table-header {
-  background-color: #95A5A6;
-  font-size: 14px;
+  background-color: #838383;
+  padding: 15px 15px;
+  font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  color: white;
 }
 .responsive-table .table-row, .responsive-table-result .table-row-result {
-  background-color: #ebebeb;
+  background-color: #c2c2c2;
   box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  color: rgb(79, 79, 79);
 }
 .responsive-table .col-1, .responsive-table-result .col-1 {
   flex-basis: 25%;
@@ -51,31 +44,31 @@ h2 small {
   flex-basis: 15%;
 }
 .responsive-table .col-6, .responsive-table-result .col-6 {
-  text-align: right;
   flex-basis: 15%;
+  text-align: right;
 }
 .button {
-  margin-left: 80%;
-  background-color: #c4c4c4;
+  margin-left: 85%;
+  background-color: #808080;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 15px;
   text-align: center;
   display: inline-flexbox;
   font-size: 16px;
+  border-radius: 10px;
 }
 input[type=text], select {
   width: 100%;
-  padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px 15px;
+  display: flex;
 }
 input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
+  background-color: #6f6f6f;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -84,7 +77,10 @@ input[type=submit] {
   cursor: pointer;
 }
 input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #6f746f;
+}
+form label {
+  color: black;
 }
 @media (max-width: 767px) {
   .responsive-table .table-header {
