@@ -77,8 +77,7 @@ const handleEditButton = (handleArchive, handleRemove, state) => (e) => {
   renderForm(currentNote);
   const form = document.querySelector('form');
   form.addEventListener('submit', handleSubmitButton(state));
-  const allEditElements = document.querySelectorAll('[data-type=edit]');
-  allEditElements.forEach((element) => element.addEventListener('click', handleEditButton));
+
   const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
   const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
   const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
@@ -109,6 +108,7 @@ const handleClickArchive = (handle, state) => (e) => {
   state
     .categories[currentNote.category]
     .archive = countArchiveNotes(archiveNotes, currentNote.category);
+
   removeDomElements(liTableRow, liTableRowResult);
   renderItems(newNotes, ulFirstTable);
   renderSumTableItems(state, ulResultTable);
@@ -139,6 +139,7 @@ const handleClickDelete = (state) => (e) => {
     .categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
   state
     .categories[currentNote.category].archive = countArchiveNotes(archiveNotes, currentNote);
+
   removeDomElements(li, liTableRowResult);
   renderItems(newNotes, ulFirstTable);
   renderSumTableItems(state, ulResultTable);

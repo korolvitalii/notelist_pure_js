@@ -11,7 +11,7 @@ import {
   handleClickDelete,
   handleButton,
   handleEditButton,
-} from './handle';
+} from './handlers';
 
 const app = () => {
   const state = {
@@ -58,7 +58,6 @@ const app = () => {
     default:
       break;
   }
-  console.log(state);
   const tableElementsAfterRender = {
     allIconBasketElements: document.querySelectorAll('[data-type=basket]'),
     allIconArchiveElements: document.querySelectorAll('[data-type=archive]'),
