@@ -77,6 +77,31 @@ const renderSumTableItems = (state, element) => {
   });
 };
 
+const renderArchivedNotes = (state, element) => {
+  const { archiveNotes } = state;
+  archiveNotes.forEach(({ name, id }) => {
+    const li = document.createElement('li');
+    const divCol1 = document.createElement('div');
+    const divCol2 = document.createElement('div');
+    const divCol3 = document.createElement('div');
+    const iUnarchive = document.createElement('i');
+    iUnarchive.classList.add('large', 'material-icons');
+    iUnarchive.setAttribute('data-id', id);
+    iUnarchive.setAttribute('data-type', 'unarchive');
+    iUnarchive.textContent = 'cancel';
+    li.classList.add('table-row-result');
+    divCol1.classList.add('col', 'col-1');
+    divCol2.classList.add('col', 'col-2');
+    divCol3.classList.add('col', 'col-3');
+    divCol1.textContent = name;
+    divCol3.append(iUnarchive);
+    li.append(divCol1);
+    li.append(divCol2);
+    li.append(divCol3);
+    element.append(li);
+  });
+};
+
 const renderForm = (editElement) => {
   const divContainer = document.querySelector('.buttonForForm');
   const form = document.createElement('form');
@@ -119,4 +144,6 @@ const renderForm = (editElement) => {
   divContainer.append(form);
 };
 
-export { renderItems, renderSumTableItems, renderForm };
+export {
+  renderItems, renderSumTableItems, renderForm, renderArchivedNotes,
+};
