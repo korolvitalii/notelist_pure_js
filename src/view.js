@@ -1,8 +1,6 @@
 const renderItems = (items, element) => {
   items.forEach((item) => {
-    const {
-      name, created, category, content, dates, id,
-    } = item;
+    const { name, created, category, content, dates, id } = item;
     const li = document.createElement('li');
     const divCol1 = document.createElement('div');
     const divCol2 = document.createElement('div');
@@ -58,23 +56,15 @@ const renderItems = (items, element) => {
 
 const renderSumTableItems = (state, element) => {
   const { categories, categoriesType } = state;
-  categoriesType.forEach((category) => {
-    const li = document.createElement('li');
-    const divCol1 = document.createElement('div');
-    const divCol2 = document.createElement('div');
-    const divCol3 = document.createElement('div');
-    li.classList.add('table-row-result');
-    divCol1.classList.add('col', 'col-1');
-    divCol2.classList.add('col', 'col-2');
-    divCol3.classList.add('col', 'col-3');
-    divCol1.textContent = category;
-    divCol2.textContent = categories[category].active;
-    divCol3.textContent = categories[category].archive;
-    li.append(divCol1);
-    li.append(divCol2);
-    li.append(divCol3);
-    element.append(li);
-  });
+  const sumTableHTML = categoriesType.reduce((acc, category) => {
+    acc += `<li class="table-row-result">
+              <div class="col col-1">${category}</div>
+              <div class="col col-2">${categories[category].active}</div>
+              <div class="col col-3">${categories[category].archive}</div>
+            </li>`;
+    return acc;
+  }, '');
+  element.innerHTML = sumTableHTML;
 };
 
 const renderArchivedNotes = (state, element) => {
@@ -144,6 +134,4 @@ const renderForm = (editElement) => {
   divContainer.append(form);
 };
 
-export {
-  renderItems, renderSumTableItems, renderForm, renderArchivedNotes,
-};
+export { renderItems, renderSumTableItems, renderForm, renderArchivedNotes };

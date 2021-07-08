@@ -5,9 +5,7 @@ import {
   removeDomElements,
   generateNewNote,
 } from './helpers';
-import {
-  renderItems, renderSumTableItems, renderForm, renderArchivedNotes,
-} from './view';
+import { renderItems, renderSumTableItems, renderForm, renderArchivedNotes } from './view';
 
 const tableElements = {
   ulFirstTable: document.querySelector('.responsive-table'),
@@ -19,19 +17,16 @@ const tableElements = {
   button: document.querySelector('.button'),
 };
 
-const handleClick = (handlers, state) => (e) => {
+const click = (handlers, state) => (e) => {
   e.preventDefault();
   renderForm();
   const form = document.querySelector('form');
-  form.addEventListener('submit', handleSubmit(handlers, state));
+  form.addEventListener('submit', submit(handlers, state));
 };
 
-const handleSubmit = (handlers, state) => (e) => {
+const submit = (handlers, state) => (e) => {
   e.preventDefault();
-  const {
-    ulFirstTable,
-    ulResultTable,
-  } = tableElements;
+  const { ulFirstTable, ulResultTable } = tableElements;
   const { notes } = state;
   const li = document.querySelectorAll('.table-row');
   const liTableRowResult = document.querySelectorAll('.table-row-result');
@@ -41,9 +36,10 @@ const handleSubmit = (handlers, state) => (e) => {
   const addNewNoteToAllNote = [...notes, newNote];
   state.notes = addNewNoteToAllNote;
   if (state.categories[newNote.category]) {
-    state
-      .categories[newNote.category]
-      .active = countActiveNotes(addNewNoteToAllNote, newNote.category);
+    state.categories[newNote.category].active = countActiveNotes(
+      addNewNoteToAllNote,
+      newNote.category,
+    );
   } else {
     const nameCategory = newNote.category;
     const newCategory = {
@@ -59,18 +55,22 @@ const handleSubmit = (handlers, state) => (e) => {
   removeDomElements(li, liTableRowResult, form);
   renderItems(addNewNoteToAllNote, ulFirstTable);
   renderSumTableItems(state, ulResultTable);
-
-  const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
-  const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
-  const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
-
-  basketElementAfterRender.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  archiveElementAfterRender.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  editElementAfterRender.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
+  const elementsAfterRerender = {
+    remove: document.querySelectorAll('[data-type=basket]'),
+    archive: document.querySelectorAll('[data-type=archive]'),
+    edit: document.querySelectorAll('[data-type=edit]'),
+  };
+  const keys = Object.keys(elementsAfterRerender);
+  keys.map((key) => {
+    console.log(handlers[key]);
+    return elementsAfterRerender[key].forEach((element) =>
+      element.addEventListener('click', handlers[key](handlers, state)),
+    );
+  });
 };
 
-const handleEdit = (handlers, state) => (e) => {
-  const { handleRemove, handleArchive } = handlers;
+const edit = (handlers, state) => (e) => {
+  const { remove, archive } = handlers;
   e.preventDefault();
   const { notes } = state;
   const { target } = e;
@@ -80,28 +80,28 @@ const handleEdit = (handlers, state) => (e) => {
   state.notes = newNotes;
   renderForm(currentNote);
   const form = document.querySelector('form');
-  form.addEventListener('submit', handleSubmit(handlers, state));
+  form.addEventListener('submit', submit(handlers, state));
 
-  const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
-  const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
-  const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
-  const unarchiveElementAfterRender = document.querySelectorAll('[data-type=unarchive]');
-
-  archiveElementAfterRender.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  basketElementAfterRender.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  editElementAfterRender.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
-  unarchiveElementAfterRender.forEach((element) => element.addEventListener('click', handleUnachive(handlers, state)));
+  const elementsAfterRerender = {
+    remove: document.querySelectorAll('[data-type=basket]'),
+    archive: document.querySelectorAll('[data-type=archive]'),
+    edit: document.querySelectorAll('[data-type=edit]'),
+    unarchive: document.querySelectorAll('[data-type=unarchive]'),
+  };
+  const keys = Object.keys(elementsAfterRerender);
+  keys.map((key) => {
+    console.log(handlers[key]);
+    return elementsAfterRerender[key].forEach((element) =>
+      element.addEventListener('click', handlers[key](handlers, state)),
+    );
+  });
 };
 
-const handleUnachive = (handlers, state) => (e) => {
+const unarchive = (handlers, state) => (e) => {
   e.preventDefault();
   const { notes, archiveNotes } = state;
   const { target } = e;
-  const {
-    ulFirstTable,
-    ulResultTable,
-    ulArchiveTable,
-  } = tableElements;
+  const { ulFirstTable, ulResultTable, ulArchiveTable } = tableElements;
   const liTableRow = document.querySelectorAll('.table-row');
   const liTableRowResult = document.querySelectorAll('.table-row-result');
   const currentId = Number(target.dataset.id);
@@ -117,26 +117,25 @@ const handleUnachive = (handlers, state) => (e) => {
   renderSumTableItems(state, ulResultTable);
   renderArchivedNotes(state, ulArchiveTable);
 
-  const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
-  const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
-  const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
-  const unarchiveElementAfterRender = document.querySelectorAll('[data-type=unarchive]');
-
-  archiveElementAfterRender.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  basketElementAfterRender.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  editElementAfterRender.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
-  unarchiveElementAfterRender.forEach((element) => element.addEventListener('click', handleUnachive(handlers, state)));
+  const elementsAfterRerender = {
+    remove: document.querySelectorAll('[data-type=basket]'),
+    archive: document.querySelectorAll('[data-type=archive]'),
+    edit: document.querySelectorAll('[data-type=edit]'),
+    unarchive: document.querySelectorAll('[data-type=unarchive]'),
+  };
+  const keys = Object.keys(elementsAfterRerender);
+  keys.map((key) => {
+    console.log(handlers[key]);
+    return elementsAfterRerender[key].forEach((element) =>
+      element.addEventListener('click', handlers[key](handlers, state)),
+    );
+  });
 };
 
-const handleArchive = (handlers, state) => (e) => {
-  const { handleRemove } = handlers;
+const archive = (handlers, state) => (e) => {
   const liTableRow = document.querySelectorAll('.table-row');
   const liTableRowResult = document.querySelectorAll('.table-row-result');
-  const {
-    ulFirstTable,
-    ulResultTable,
-    ulArchiveTable,
-  } = tableElements;
+  const { ulFirstTable, ulResultTable, ulArchiveTable } = tableElements;
   const { target } = e;
   const { notes, archiveNotes } = state;
   const currentId = Number(target.dataset.id);
@@ -146,68 +145,63 @@ const handleArchive = (handlers, state) => (e) => {
   currentNote.archive = true;
   currentNote.active = false;
   archiveNotes.push(currentNote);
-  state
-    .categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
-  state
-    .categories[currentNote.category]
-    .archive = countArchiveNotes(archiveNotes, currentNote.category);
+  state.categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
+  state.categories[currentNote.category].archive = countArchiveNotes(
+    archiveNotes,
+    currentNote.category,
+  );
 
   removeDomElements(liTableRow, liTableRowResult);
   renderItems(newNotes, ulFirstTable);
   renderSumTableItems(state, ulResultTable);
   renderArchivedNotes(state, ulArchiveTable);
 
-  const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
-  const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
-  const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
-  const unArchiveElementAfterRender = document.querySelectorAll('[data-type=unarchive]');
-
-  archiveElementAfterRender.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  basketElementAfterRender.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  editElementAfterRender.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
-  unArchiveElementAfterRender.forEach((element) => element.addEventListener('click', handleUnachive(handlers, state)));
+  const elementsAfterRerender = {
+    remove: document.querySelectorAll('[data-type=basket]'),
+    archive: document.querySelectorAll('[data-type=archive]'),
+    edit: document.querySelectorAll('[data-type=edit]'),
+    unarchive: document.querySelectorAll('[data-type=unarchive]'),
+  };
+  const keys = Object.keys(elementsAfterRerender);
+  keys.map((key) => {
+    console.log(handlers[key]);
+    return elementsAfterRerender[key].forEach((element) =>
+      element.addEventListener('click', handlers[key](handlers, state)),
+    );
+  });
 };
 
-const handleRemove = (handlers, state) => (e) => {
+const remove = (handlers, state) => (e) => {
   const li = document.querySelectorAll('.table-row');
   const liTableRowResult = document.querySelectorAll('.table-row-result');
-  const {
-    ulFirstTable,
-    ulResultTable,
-    ulArchiveTable,
-  } = tableElements;
+  const { ulFirstTable, ulResultTable, ulArchiveTable } = tableElements;
   const { target } = e;
   const { notes, archiveNotes } = state;
   const currentId = Number(target.dataset.id);
   const currentNote = notes.filter(({ id }) => id === currentId)[0];
   const newNotes = removeNote(notes, currentId);
   state.notes = newNotes;
-  state
-    .categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
-  state
-    .categories[currentNote.category].archive = countArchiveNotes(archiveNotes, currentNote);
+  state.categories[currentNote.category].active = countActiveNotes(newNotes, currentNote.category);
+  state.categories[currentNote.category].archive = countArchiveNotes(archiveNotes, currentNote);
 
   removeDomElements(li, liTableRowResult);
   renderItems(newNotes, ulFirstTable);
   renderSumTableItems(state, ulResultTable);
   renderArchivedNotes(state, ulArchiveTable);
 
-  const basketElementAfterRender = document.querySelectorAll('[data-type=basket]');
-  const archiveElementAfterRender = document.querySelectorAll('[data-type=archive]');
-  const editElementAfterRender = document.querySelectorAll('[data-type=edit]');
-  const unArchiveElementAfterRender = document.querySelectorAll('[data-type=unarchive]');
-
-  basketElementAfterRender.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  archiveElementAfterRender.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  editElementAfterRender.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
-  unArchiveElementAfterRender.forEach((element) => element.addEventListener('click', handleUnachive(handlers, state)));
+  const elementsAfterRerender = {
+    remove: document.querySelectorAll('[data-type=basket]'),
+    archive: document.querySelectorAll('[data-type=archive]'),
+    edit: document.querySelectorAll('[data-type=edit]'),
+    unarchive: document.querySelectorAll('[data-type=unarchive]'),
+  };
+  const keys = Object.keys(elementsAfterRerender);
+  keys.map((key) => {
+    console.log(handlers[key]);
+    return elementsAfterRerender[key].forEach((element) =>
+      element.addEventListener('click', handlers[key](handlers, state)),
+    );
+  });
 };
 
-export {
-  handleArchive,
-  handleRemove,
-  handleSubmit,
-  handleClick,
-  handleEdit,
-  handleUnachive,
-};
+export { archive, remove, submit, click, edit, unarchive };

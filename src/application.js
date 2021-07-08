@@ -22,13 +22,16 @@ const app = () => {
   const init = () => {
     state.notes = giveNoteUniqueId(items);
     state.categoriesType = getUniqueCategories(items);
-    state.categories = getUniqueCategories(items).reduce((acc, note) => ({
-      ...acc,
-      [note]: {
-        active: countActiveNotes(state.notes, note),
-        archive: countArchiveNotes(state.archiveNotes, note),
-      },
-    }), {});
+    state.categories = getUniqueCategories(items).reduce(
+      (acc, note) => ({
+        ...acc,
+        [note]: {
+          active: countActiveNotes(state.notes, note),
+          archive: countArchiveNotes(state.archiveNotes, note),
+        },
+      }),
+      {},
+    );
   };
   init();
 
@@ -58,19 +61,21 @@ const app = () => {
     button: document.querySelector('.button'),
   };
 
-  const {
-    handleArchive,
-    handleRemove,
-    handleClick,
-    handleEdit,
-    handleUnachive,
-  } = handlers;
+  const { archive, remove, click, edit, unarchive } = handlers;
 
-  tableElementsAfterRender.allIconBasketElements.forEach((element) => element.addEventListener('click', handleRemove(handlers, state)));
-  tableElementsAfterRender.allIconArchiveElements.forEach((element) => element.addEventListener('click', handleArchive(handlers, state)));
-  tableElementsAfterRender.button.addEventListener('click', handleClick(handlers, state));
-  tableElementsAfterRender.allIconEditElements.forEach((element) => element.addEventListener('click', handleEdit(handlers, state)));
-  tableElementsAfterRender.allIcomUnarchiveElements.forEach((element) => element.addEventListener('click', handleUnachive(handlers, state)));
+  tableElementsAfterRender.allIconBasketElements.forEach((element) =>
+    element.addEventListener('click', remove(handlers, state)),
+  );
+  tableElementsAfterRender.allIconArchiveElements.forEach((element) =>
+    element.addEventListener('click', archive(handlers, state)),
+  );
+  tableElementsAfterRender.button.addEventListener('click', click(handlers, state));
+  tableElementsAfterRender.allIconEditElements.forEach((element) =>
+    element.addEventListener('click', edit(handlers, state)),
+  );
+  tableElementsAfterRender.allIcomUnarchiveElements.forEach((element) =>
+    element.addEventListener('click', unarchive(handlers, state)),
+  );
   return null;
 };
 
